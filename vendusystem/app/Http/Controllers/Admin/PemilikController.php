@@ -184,8 +184,9 @@ class PemilikController extends Controller
      */
     public function destroy($id)
     {
+        $pemilik = Pemilik::findOrFail($id);
+        $user = User::destroy($pemilik->user);
         $information = Pemilik::destroy($id);
-        $user = User::wherePemilik($id)->delete();
 
         if($information) {
             $data['message'] = "Berhasil di hapus!";

@@ -147,3 +147,51 @@ Request::is('admin/koreksi*')) ? 'open active' : ''}}">
         </li>
     </ul>
 </li>
+
+
+
+
+<li class="{{ (Request::is('admin/diskon*') ||
+Request::is('admin/penjualan*') ||
+Request::is('admin/pengembalian*') ||
+Request::is('admin/pendapatan*') ||
+Request::is('admin/pengeluaran*')) ? 'open active' : ''}}">
+    <a href="javascript:;"><span class="title">Kasir Data</span>
+        <span class="arrow {{
+        (Request::is('admin/diskon*') ||
+        Request::is('admin/penjualan*') ||
+        Request::is('admin/pengembalian*') ||
+        Request::is('admin/pendapatan*') ||
+        Request::is('admin/pengeluaran*')) ? 'open active' : ''}}"></span>
+    </a>
+    <span class="{{ (Request::is('admin/diskon*') ||
+        Request::is('admin/penjualan*') ||
+        Request::is('admin/pengembalian*') ||
+        Request::is('admin/pendapatan*') ||
+        Request::is('admin/pengeluaran*')) ? 'bg-success' : ''}} icon-thumbnail">
+        <i class="fa fa-calculator"></i>
+    </span>
+
+    <ul class="sub-menu">
+        <li class="{{ (Request::is('admin/diskon*')) ? 'active' : '' }}">
+            <a href="{{url('admin/diskon')}}">Diskon</a>
+            <span class="{{ (Request::is('admin/diskon*')) ? 'bg-success' : '' }} icon-thumbnail">DS</span>
+        </li>
+        <li class="{{ (Request::is('admin/penjualan*')) ? 'active' : '' }}">
+            <a href="{{url('admin/penjualan')}}">Penjualan</a>
+            <span class="{{ (Request::is('admin/penjualan*')) ? 'bg-success' : '' }} icon-thumbnail">PJ</span>
+        </li>
+        <li class="{{ (Request::is('admin/pengembalian*')) ? 'active' : '' }}">
+            <a href="{{url('admin/pengembalian')}}">Pengembalian</a>
+            <span class="{{ (Request::is('admin/pengembalian*')) ? 'bg-success' : '' }} icon-thumbnail">PM</span>
+        </li>
+        <li class="{{ (Request::is('admin/pendapatan*')) ? 'active' : '' }}">
+            <a href="{{url('admin/pendapatan')}}">Pendapatan</a>
+            <span class="{{ (Request::is('admin/pendapatan*')) ? 'bg-success' : '' }} icon-thumbnail">PD</span>
+        </li>
+        <li class="{{ (Request::is('admin/pengembalian*')) ? 'active' : '' }}">
+            <a href="{{url('admin/pengembalian')}}">Pengembalian</a>
+            <span class="{{ (Request::is('admin/pengembalian*')) ? 'bg-success' : '' }} icon-thumbnail">PG</span>
+        </li>
+    </ul>
+</li>
