@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\KeluarInventori;
-use App\Inventori;
+use App\KeluarTransaksi;
+use App\Transaksi;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use App\MasukInventori;
+use App\MasukTransaksi;
 use App\Toko;
 use App\Produk;
 use App\Satuan;
@@ -41,7 +41,7 @@ class TransPenjualanController extends Controller
      */
     public function index(Request $request)
     {
-        $penjualans = new Inventori();
+        $penjualans = new Transaksi();
         $no = (($request->page - 1) * $this->perpage) + 1;
         $no = ($no < 1) ? 1 : $no;
         if($request->tanggal_mulai && $request->tanggal_selesai){
@@ -102,11 +102,11 @@ class TransPenjualanController extends Controller
 
         $requestData = $request->except(['details']);
 
-        $information = Inventori::create($requestData);
+        $information = Transaksi::create($requestData);
         if($information) {
             $details = json_decode($request->details);
             foreach($details->data as $detail) {
-                $produk = MasukInventori::whereProduk($detail->produk)->orderBy('created_at', 'desc')->first();
+                $produk = MasukTransaksi::whereProduk($detail->produk)->orderBy('created_at', 'desc')->first();
 
                 $req["satuan"] = $produk->satuan;
                 $req["inventori"] = $information->id;
@@ -115,7 +115,7 @@ class TransPenjualanController extends Controller
                 $req["jumlah"] = $detail->jumlah;
                 $req["total"] = $detail->jumlah * $produk->harga;
 
-                KeluarInventori::create($req);
+                KeluarTransaksi::create($req);
             }
         }
 
@@ -131,10 +131,10 @@ class TransPenjualanController extends Controller
      */
     public function destroy($id)
     {
-        $information = Inventori::destroy($id);
+        $information = Transaksi::destroy($id);
 
         if($information) {
-            $subs = KeluarInventori::whereInventori($id)->delete();
+            $subs = KeluarTransaksi::whereTransaksi($id)->delete();
             if($subs) {
                 $data['message'] = "Berhasil di hapus!";
                 $data['status'] = 200;
@@ -164,7 +164,7 @@ class TransPenjualanController extends Controller
      */
     public function show($id)
     {
-        $information = Inventori::findOrFail($id);
+        $information = Transaksi::findOrFail($id);
         $no = 1;
 
         return view('admin.page.penjualan.show', compact("information", 'no'));
