@@ -37,6 +37,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::resource('masuk', 'Admin\\StokMasukController');
     Route::resource('keluar', 'Admin\\StokKeluarController');
     Route::resource('retur', 'Admin\\StokReturController');
+    Route::resource('penjualan', 'Admin\\TransPenjualanController');
 });
 
 
