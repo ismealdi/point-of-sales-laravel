@@ -33,9 +33,9 @@
                                         <i class="fa fa-calendar"></i>
                                     </div>
                                 </div>
-                                <div class="form-group form-group-default form-group-default-select2 input-group {{ $errors->has('pemasok') ? 'has-error' : ''}}">
+                                <div class="form-group form-group-default form-group-default-select2 input-group required {{ $errors->has('pemasok') ? 'has-error' : ''}}">
                                     {!! Form::label('pemasok', "pemasok", ["class" => 'label-top-0']) !!}
-                                    {!! Form::select('pemasok', $pemasok, null, ['class' => 'full-width', 'data-init-plugin' => 'select2', 'id' => 'pemasok']) !!}
+                                    {!! Form::select('pemasok', $pemasok, null, ['class' => 'full-width', 'data-init-plugin' => 'select2', 'id' => 'pemasok', 'required']) !!}
                                     <div class="input-group-addon no-padding">
                                         <a class="btn btn-default btn-group p-t-15" onclick="addPemasok()"><i class="fa fa-plus"></i></a>
                                     </div>

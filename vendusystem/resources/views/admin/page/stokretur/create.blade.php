@@ -1,8 +1,8 @@
 @extends('admin.layouts.frame')
-@section('title', 'Tambah Stok Keluar')
+@section('title', 'Tambah Stok Retur')
 @section('description', 'Mohon lengkapi seluruh informasi data')
 @section('button')
-    <a href="{{ url('/admin/keluar') }}" class="btn btn-info btn-xs no-border">Kembali</a>
+    <a href="{{ url('/admin/retur') }}" class="btn btn-info btn-xs no-border">Kembali</a>
 @endsection
 
 @section('content')
@@ -13,14 +13,14 @@
                     <div class="panel-body panel-bordered ">
                         <div class="row">
                             <div class="col-xs-12">
-                                {!! $errors->first('toko', '<label class="lb-di error">:message</label>') !!}
+                                {!! $errors->first('pemasok', '<label class="lb-di error">:message</label>') !!}
                                 {!! $errors->first('catatan', '<label class="lb-di error">:message</label>') !!}
                                 {!! $errors->first('tanggal', '<label class="lb-di error">:message</label>') !!}
                             </div>
                         </div>
                     </div>
                 </div>
-                {!! Form::open(['url' => 'admin/keluar', 'id' => 'formValidate', 'files' => true]) !!}
+                {!! Form::open(['url' => 'admin/retur', 'id' => 'formValidate', 'files' => true]) !!}
                 <div class="panel panel-default m-b-0">
                     <div class="panel-body sm-p-t-15">
 
@@ -33,11 +33,11 @@
                                         <i class="fa fa-calendar"></i>
                                     </div>
                                 </div>
-                                <div class="form-group form-group-default form-group-default-select2 input-group {{ $errors->has('toko') ? 'has-error' : ''}}">
-                                    {!! Form::label('toko', "toko", ["class" => 'label-top-0']) !!}
-                                    {!! Form::select('toko', $toko, null, ['class' => 'full-width', 'data-init-plugin' => 'select2', 'id' => 'toko']) !!}
+                                <div class="form-group form-group-default form-group-default-select2 input-group {{ $errors->has('pemasok') ? 'has-error' : ''}}">
+                                    {!! Form::label('pemasok', "pemasok", ["class" => 'label-top-0']) !!}
+                                    {!! Form::select('pemasok', $pemasok, null, ['class' => 'full-width', 'data-init-plugin' => 'select2', 'id' => 'pemasok']) !!}
                                     <div class="input-group-addon no-padding">
-                                        <a class="btn btn-default btn-group p-t-15" onclick="addToko()"><i class="fa fa-plus"></i></a>
+                                        <a class="btn btn-default btn-group p-t-15" onclick="addPemasok()"><i class="fa fa-plus"></i></a>
                                     </div>
                                 </div>
                             </div>
@@ -104,7 +104,7 @@
         </div>
     </div>
 
-    @include('admin.dialog.toko.create')
+    @include('admin.dialog.pemasok.create')
 @endsection
 
 @push('script')
@@ -114,6 +114,8 @@
                 $(this).select();
             });
 
+            $("#produkSelector").prop( 'disabled', 'readonly');
+            $("#jumlahSelector").prop( 'disabled', 'readonly');
             $('.autonumeric').autoNumeric('init');
             $('.datepicker-text').datepicker({
                 title: "Tanggal",
@@ -216,8 +218,8 @@
 
         }
 
-        function addToko() {
-            $('#modalAddToko').modal('show');
+        function addPemasok() {
+            $('#modalAddPemasok').modal('show');
         }
 
         function initMax(max, satuan) {
@@ -240,9 +242,10 @@
 
         $('#produkSelector').on('change', function() {
             var x = document.getElementById("produkSelector").value;
+            var y = document.getElementById("pemasok").value;
             $.ajax({
                 type:'GET',
-                url:'{{ url("api/v1/admin/produk/stok") }}/' + x,
+                url:'{{ url("api/v1/admin/produk/pembelian/") }}/' + x + '/' + y,
                 contentType: 'application/json; charset=utf-8',
                 success:function(json){
                     $.each(json, function(i, value) {
@@ -258,6 +261,45 @@
                 },
                 error:function (json) {
                     initMax(9, "");
+                }
+            });
+        });
+
+        $('#pemasok').on('change', function() {
+            var x = document.getElementById("pemasok").value;
+            $.ajax({
+                type:'GET',
+                url:'{{ url("api/v1/admin/pemasok/produk") }}/' + x,
+                contentType: 'application/json; charset=utf-8',
+                success:function(json){
+                    $.each(json, function(i, value) {
+                        if(i === "data") {
+                            $('#produkSelector').html("");
+                            $('#produkSelector').append($('<option>').text("Pilih Produk").attr('value', 0));
+                            $.each(value, function(ind, valu) {
+                                $('#produkSelector').append($('<option>').text(valu.nama).attr('value', valu.id));
+                            });
+
+                            $("#produkSelector").select2('val', '0');
+                            $("#jumlahSelector").val(0);
+
+                        }else if(i === "last") {
+                            if(value > 0) {
+                                $("#produkSelector").prop( 'disabled', null);
+                                $("#jumlahSelector").prop( 'disabled', null);
+                            }else{
+                                $("#produkSelector").prop( 'disabled', 'readonly');
+                                $("#jumlahSelector").prop( 'disabled', 'readonly');
+                            }
+                        }
+
+                    });
+                },
+                error:function (json) {
+                    $("#produkSelector").prop( 'disabled', 'readonly');
+                    $("#jumlahSelector").prop( 'disabled', 'readonly');
+                    $("#produkSelector").select2('val', '0');
+                    $("#jumlahSelector").val(0);
                 }
             });
         });

@@ -1,7 +1,7 @@
 @extends('admin.layouts.frame')
-@section('title', 'Stok Keluars')
+@section('title', 'Stok Returs')
 @section('description')
-    Keluaran daftar stok keluar
+    Returan daftar stok retur
 @endsection
 
 
@@ -13,13 +13,13 @@
                 <div class="panel panel-default">
                     <div class="panel-heading p-b-15">
                         <div class="panel-title">
-                            {!! Form::open(['url' => 'admin/keluar', 'method' => 'get', 'class' => 'form-inline']) !!}
+                            {!! Form::open(['url' => 'admin/retur', 'method' => 'get', 'class' => 'form-inline']) !!}
                             {!! Form::text('tanggal_mulai', null, ['class' => 'form-control input-md  b-rad-md search-text datepicker-text input-re', "placeholder" => "Tanggal Mulai", 'readonly']) !!}
                             {!! Form::text('tanggal_selesai', null, ['class' => 'form-control input-md  b-rad-md search-text datepicker-text input-re', "placeholder" => "Tanggal Selesai", 'readonly']) !!}
                             <button class="btn btn-success btn-rounded btn-xs" type="submit" style="width:28px;height:28px;margin-right:4px;margin-left:-15px;"><i class="fa fa-search" style="width:8px;"></i></button>
                             {!! Form::close() !!}
                         </div>
-                        <a href="{{ url('admin/keluar/create') }}" class="btn btn-complete pull-right btn-rounded btn-xs" type="button" style="width:28px;height:28px;margin-right:4px;margin-top: 3px"><i class="fa fa-plus" style="width:8px;"></i></a>
+                        <a href="{{ url('admin/retur/create') }}" class="btn btn-complete pull-right btn-rounded btn-xs" type="button" style="width:28px;height:28px;margin-right:4px;margin-top: 3px"><i class="fa fa-plus" style="width:8px;"></i></a>
                         <div class="clearfix"></div>
                     </div>
                     <div class="panel-body b-t b-grey no-padding" style="background: #FFF;">
@@ -44,7 +44,7 @@
                                 <tr id="Barcode{{ $stokretur->id }}">
                                     <td>{{ $no++ }}.</td>
                                     <td class="font-montserrat fs-12">
-                                        <a href="{{ url('admin/keluar/'.$stokretur->id) }}">{{ $stokretur->formatedDate($stokretur->tanggal) }}</a>
+                                        <a href="{{ url('admin/retur/'.$stokretur->id) }}">{{ $stokretur->formatedDate($stokretur->tanggal) }}</a>
                                     </td>
                                     <td class="text-left b-r b-dashed b-grey">
                                         <span class="hint-text">{{ $stokretur->getDaftar()->sum('jumlah') }} Barang</span><br/>
@@ -105,7 +105,7 @@
         var id = $('#deleteID').val();
         var sd = $('#deleteSD').val();
         $.ajax({
-            url: '{{url("admin/keluar")}}' + "/" + id + '?' + $.param({"cont": sd, "_token" : '{{ csrf_token() }}' }),
+            url: '{{url("admin/retur")}}' + "/" + id + '?' + $.param({"cont": sd, "_token" : '{{ csrf_token() }}' }),
             type: 'DELETE',
             complete: function(data) {
                 $('#'+sd+ id).remove();

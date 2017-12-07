@@ -33,9 +33,9 @@
                                         <i class="fa fa-calendar"></i>
                                     </div>
                                 </div>
-                                <div class="form-group form-group-default form-group-default-select2 input-group {{ $errors->has('toko') ? 'has-error' : ''}}">
+                                <div class="form-group form-group-default form-group-default-select2 input-group required {{ $errors->has('toko') ? 'has-error' : ''}}">
                                     {!! Form::label('toko', "toko", ["class" => 'label-top-0']) !!}
-                                    {!! Form::select('toko', $toko, null, ['class' => 'full-width', 'data-init-plugin' => 'select2', 'id' => 'toko']) !!}
+                                    {!! Form::select('toko', $toko, null, ['class' => 'full-width', 'data-init-plugin' => 'select2', 'id' => 'toko', 'required']) !!}
                                     <div class="input-group-addon no-padding">
                                         <a class="btn btn-default btn-group p-t-15" onclick="addToko()"><i class="fa fa-plus"></i></a>
                                     </div>

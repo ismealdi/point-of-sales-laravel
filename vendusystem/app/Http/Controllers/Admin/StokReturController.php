@@ -8,9 +8,11 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\MasukInventori;
-use App\Toko;
+use App\Pemasok;
 use App\Produk;
+use App\ReturInventori;
 use App\Satuan;
+use App\TipePemasok;
 use App\TipeToko;
 use Illuminate\Http\Request;
 use Session;
@@ -18,7 +20,7 @@ use DB;
 use Auth;
 use File;
 
-class ReturController extends Controller
+class StokReturController extends Controller
 {
     private $perpage, $typetransaction;
 
@@ -67,7 +69,8 @@ class ReturController extends Controller
      */
     public function create()
     {
-        $toko = Toko::pluck('nama', 'id')->prepend("Pilih Toko", 0);
+        $pemasok = Pemasok::pluck('nama', 'id')->prepend("Pilih Pemasok", 0);
+        $tipepemasoks = TipePemasok::pluck('nama', 'id')->prepend("Pilih Tipe Pemasok", 0);
         $produk = Produk::
             leftJoin('masuk_inventoris', 'masuk_inventoris.produk', '=', 'produks.id')
             ->leftJoin('inventoris', 'inventoris.id', '=', 'masuk_inventoris.inventori')
@@ -78,7 +81,7 @@ class ReturController extends Controller
             ->pluck('nama', 'id')->prepend("Pilih Produk", 0);
 
 
-        return view('admin.page.stokretur.create', compact('toko', 'produk'));
+        return view('admin.page.stokretur.create', compact('pemasok', 'produk', 'tipepemasoks'));
     }
 
     /**
@@ -106,7 +109,11 @@ class ReturController extends Controller
         if($information) {
             $details = json_decode($request->details);
             foreach($details->data as $detail) {
-                $produk = MasukInventori::whereProduk($detail->produk)->orderBy('created_at', 'desc')->first();
+                $produk = Inventori::join('masuk_inventoris', 'masuk_inventoris.inventori', '=', 'inventoris.id')
+                    ->whereTransaksi("masuk")
+                    ->where('inventoris.pemasok', $request->pemasok)
+                    ->where('masuk_inventoris.produk', $detail->produk)
+                    ->orderBy('masuk_inventoris.created_at', 'desc')->first();
 
                 $req["satuan"] = $produk->satuan;
                 $req["inventori"] = $information->id;
@@ -115,7 +122,7 @@ class ReturController extends Controller
                 $req["jumlah"] = $detail->jumlah;
                 $req["total"] = $detail->jumlah * $produk->harga;
 
-                KeluarInventori::create($req);
+                ReturInventori::create($req);
             }
         }
 

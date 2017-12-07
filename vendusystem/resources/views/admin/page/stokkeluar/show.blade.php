@@ -28,7 +28,7 @@
                                     <td class="font-montserrat fs-12" width="85%">{{ $information->getNamaToko() }}</td>
                                 </tr>
                                 <tr>
-                                    <td class="text-left b-r b-dashed b-grey">Alamat Pemasok</td>
+                                    <td class="text-left b-r b-dashed b-grey">Alamat Toko</td>
                                     <td class="font-montserrat fs-12" width="85%">{{ $information->getToko->alamat }}</td>
                                 </tr>
                                 <tr>

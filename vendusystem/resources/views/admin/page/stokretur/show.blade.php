@@ -1,8 +1,8 @@
 @extends('admin.layouts.frame')
-@section('title', 'Informasi Stok Keluar')
+@section('title', 'Informasi Stok Retur')
 @section('description', 'Informasi lengkap data terpilih')
 @section('button')
-    <a href="{{ url('/admin/keluar') }}" class="btn btn-info btn-xs no-border">Kembali</a>
+    <a href="{{ url('/admin/retur') }}" class="btn btn-info btn-xs no-border">Kembali</a>
 @endsection
 
 @section('content')
@@ -12,11 +12,11 @@
                 <div class="panel panel-default  m-b-50">
                     <div class="panel-heading p-b-15">
                         <div class="panel-title">
-                            {!! Form::open(['url' => 'admin/keluar', 'method' => 'get', 'class' => 'form-inline']) !!}
+                            {!! Form::open(['url' => 'admin/retur', 'method' => 'get', 'class' => 'form-inline']) !!}
                             Tanggal Dibuat: {!! $information->formatedDate($information->created_at) !!}<br/>
                             {!! Form::close() !!}
                         </div>
-                        <a onClick="deleteData({{ $information->id }}, 'Stok Keluar')" class="btn btn-danger btn-rounded btn-xs pull-right" type="button" style="height:28px;margin-right:4px;margin-top: 0px;"><i class="fa fa-trash"></i></a>
+                        <a onClick="deleteData({{ $information->id }}, 'Stok Retur')" class="btn btn-danger btn-rounded btn-xs pull-right" type="button" style="height:28px;margin-right:4px;margin-top: 0px;"><i class="fa fa-trash"></i></a>
                         <div class="clearfix"></div>
                     </div>
                     <div class="panel-body b-t b-grey no-padding" style="background: #FFF;">
@@ -24,12 +24,12 @@
                             <table class="table table-hover table-t-b-0">
                                 <tbody>
                                 <tr>
-                                    <td class="text-left b-r b-dashed b-grey">Toko</td>
-                                    <td class="font-montserrat fs-12" width="85%">{{ $information->getNamaToko() }}</td>
+                                    <td class="text-left b-r b-dashed b-grey">Pemasok</td>
+                                    <td class="font-montserrat fs-12" width="85%">{{ $information->getNamaPemasok() }}</td>
                                 </tr>
                                 <tr>
                                     <td class="text-left b-r b-dashed b-grey">Alamat Pemasok</td>
-                                    <td class="font-montserrat fs-12" width="85%">{{ $information->getToko->alamat }}</td>
+                                    <td class="font-montserrat fs-12" width="85%">{{ $information->getPemasok->alamat }}</td>
                                 </tr>
                                 <tr>
                                     <td class="text-left b-r b-dashed b-grey">Jumlah Produk</td>
@@ -47,7 +47,7 @@
 
                     <div class="panel-heading p-b-15">
                         <div class="panel-title">
-                            Rincian Daftar Produk Keluar
+                            Rincian Daftar Produk Retur
                         </div>
                     </div>
                     <div class="panel-body b-t b-grey no-padding" style="background: #FFF;">
@@ -106,10 +106,10 @@
 
 @push("script")
     <script>
-        function deleteData(id, stokkeluar) {
+        function deleteData(id, stokretur) {
             $('#modalDelete').modal('show');
             $('#deleteID').val(id);
-            $('#deleteSD').val(stokkeluar);
+            $('#deleteSD').val(stokretur);
         }
 
         function hapus(){
@@ -117,10 +117,10 @@
             var id = $('#deleteID').val();
             var sd = $('#deleteSD').val();
             $.ajax({
-                url: '{{url("admin/keluar")}}' + "/" + id + '?' + $.param({"cont": sd, "_token" : '{{ csrf_token() }}' }),
+                url: '{{url("admin/retur")}}' + "/" + id + '?' + $.param({"cont": sd, "_token" : '{{ csrf_token() }}' }),
                 type: 'DELETE',
                 complete: function(data) {
-                    window.location.assign("{{url('admin/keluar')}}");
+                    window.location.assign("{{url('admin/retur')}}");
                 }
             });
         }

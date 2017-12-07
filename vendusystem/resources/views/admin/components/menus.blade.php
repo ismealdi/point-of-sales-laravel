@@ -133,14 +133,14 @@ Request::is('admin/koreksi*')) ? 'open active' : ''}}">
             <a href="{{url('admin/keluar')}}">Stok Keluar</a>
             <span class="{{ (Request::is('admin/keluar*')) ? 'bg-success' : '' }} icon-thumbnail">SK</span>
         </li>
-        <li class="{{ (Request::is('admin/sirkulasi*')) ? 'active' : '' }}">
+        {{--<li class="{{ (Request::is('admin/sirkulasi*')) ? 'active' : '' }}">
             <a href="{{url('admin/sirkulasi')}}">Stok Sirkulasi</a>
             <span class="{{ (Request::is('admin/sirkulasi*')) ? 'bg-success' : '' }} icon-thumbnail">SS</span>
         </li>
         <li class="{{ (Request::is('admin/koreksi*')) ? 'active' : '' }}">
             <a href="{{url('admin/koreksi')}}">Stok Koreksi</a>
             <span class="{{ (Request::is('admin/koreksi*')) ? 'bg-success' : '' }} icon-thumbnail">SO</span>
-        </li>
+        </li>--}}
         <li class="{{ (Request::is('admin/retur*')) ? 'active' : '' }}">
             <a href="{{url('admin/retur')}}">Retur Barang</a>
             <span class="{{ (Request::is('admin/retur*')) ? 'bg-success' : '' }} icon-thumbnail">RB</span>
