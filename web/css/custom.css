@@ -1,0 +1,193 @@
+ul.navigation li.special a {
+    display: block;
+    padding: 0px;
+    padding-left: 17px;
+    border-left: 2px solid #101010;
+    font-weight:600;
+}
+
+@media screen and (max-width: 992px) {
+    ul.navigation li.special a {
+        display: block;
+        padding: 15px 0px;
+        padding-left: 0px;
+        border-left: 0px;
+    }
+}
+
+div.brand-top {
+    padding-top: 15px;
+}
+
+a.brand {
+    background: #101010;
+    color: #FFF;
+    font-size: 18px;
+    padding: 8px 12px;
+}
+
+#services {
+    min-height: 32vh;
+}
+
+.carousel-indicators {
+    left: -20%;
+    top: 10%;
+}
+
+.carousel-indicators li {
+    display: block;
+    margin: 8px 0;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+    background: #FFF;
+    border-color: #101010;
+    transition: all .2s;
+}
+
+.carousel-indicators li.active {
+    background: #101010;
+    padding: 6px;
+}
+
+.carousel-fade .carousel-inner .item {
+    opacity: 0;
+    -webkit-transition-property: opacity;
+    -moz-transition-property: opacity;
+    -o-transition-property: opacity;
+    transition-property: opacity;
+    padding: 0 20px;
+}
+.carousel-fade .carousel-inner .active {
+    opacity: 1;
+}
+.carousel-fade .carousel-inner .active.left,
+.carousel-fade .carousel-inner .active.right {
+    left: 0;
+    opacity: 0;
+    z-index: 1;
+}
+.carousel-fade .carousel-inner .next.left,
+.carousel-fade .carousel-inner .prev.right {
+    opacity: 1;
+}
+.carousel-fade .carousel-control {
+    z-index: 2;
+}
+
+@media screen and (max-width: 992px)  {
+    .carousel-indicators {
+        left: 20%;
+        opacity: .2;
+    }
+
+    .carousel-fade .carousel-inner .item {
+        width: 100% !important;
+    }
+}
+
+ul.client{
+    padding-top: 20px;
+    padding-left: 0px;
+    margin-left: 0px;
+}
+
+ul.client li {
+    list-style: none;
+    padding-left: 0px;
+    padding-bottom: 2px;
+    color: #555;
+    font-weight: 400;
+    margin-bottom: 10px;
+    font-family: Montserrat,Helvetica Neue,Helvetica,sans-serif;
+    font-size: 13px;
+}
+
+.services div.item {
+    border-bottom: 1px solid #ddd;
+}
+
+footer.top {
+    border-bottom: 3px solid #101010;
+}
+
+textarea {
+    max-width: 100%;
+}
+
+.text-red {
+    color: #ff4020 !important;
+    font-style: italic;
+}
+
+.float-alert {
+    border-radius: 0px;
+    background: #101010;
+    border: none;
+    color: #F2F2F2;
+    position: fixed;
+    z-index: 999;
+    margin-left:35px;
+    bottom: 0px;
+}
+
+aside {
+    background: none !important;
+    padding: 0px !important;
+}
+
+ul.pagination {
+    text-align: center;
+    margin: 0 auto;
+}
+
+ul.pagination li a {
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 400;
+    padding: 16px 25px 15px;
+    -webkit-transition: background .3s;
+    transition: background .3s;
+    font-size: 13px;
+    border: none;
+    background: #000;
+}
+
+ul.pagination li.active span {
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 400;
+    padding: 16px 25px 15px;
+    -webkit-transition: background .3s;
+    transition: background .3s;
+    font-size: 13px;
+    border: none;
+    background: #1a3dd5;
+}
+
+ul.pagination li:hover a  {
+    background: #2c55d5;
+    color: #fff;
+}
+
+ul.pagination li.active:hover span  {
+    background: #2c55d5;
+    color: #fff;
+}
+
+ul.pagination li:last-child {
+    display: none;
+}
+
+ul.pagination li:first-child {
+    display: none;
+}
+
+
+
+@media screen and (max-width: 768px) {
+    .sharethis-inline-share-buttons {
+        margin-bottom: 40px !important;
+    }
+}
