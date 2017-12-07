@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\MasukInventori;
 use App\Produk;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class MasukInventori extends Model
 {
+    use SoftDeletes;
 
     /**
      * The database table used by the model.
@@ -30,6 +31,13 @@ class MasukInventori extends Model
     protected $fillable = [
         'inventori' ,'produk', 'satuan', 'harga', 'jumlah', 'total'
     ];
+
+    /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = ['deleted_at'];
 
     public function getInventori() {
         return $this->hasOne("App\Inventori", "id", "inventori");

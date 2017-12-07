@@ -134,14 +134,22 @@ class StokKeluarController extends Controller
         $information = Inventori::destroy($id);
 
         if($information) {
-            $data['message'] = "Berhasil di hapus!";
-            $data['status'] = 200;
-            $data['data'] = null;
+            $subs = KeluarInventori::whereInventori($id)->delete();
+            if($subs) {
+                $data['message'] = "Berhasil di hapus!";
+                $data['status'] = 200;
+                $data['data'] = null;
+            }else{
+                $data['message'] = "Gagal di hapus!";
+                $data['status'] = 404;
+                $data['data'] = null;
+            }
         }else{
             $data['message'] = "Gagal di hapus!";
             $data['status'] = 404;
             $data['data'] = null;
         }
+
 
 
         return response()->json($data, $data["status"]);

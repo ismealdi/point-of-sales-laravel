@@ -25,6 +25,7 @@ class CreateReturInventorisTable extends Migration
             $table->char('jumlah', 20)->default(0);
             $table->char('total', 20)->default(0);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

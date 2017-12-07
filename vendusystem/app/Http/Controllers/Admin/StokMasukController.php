@@ -7,6 +7,7 @@ use App\Inventori;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\KeluarInventori;
 use App\MasukInventori;
 use App\Pemasok;
 use App\Produk;
@@ -127,9 +128,22 @@ class StokMasukController extends Controller
         $information = Inventori::destroy($id);
 
         if($information) {
-            $data['message'] = "Berhasil di hapus!";
-            $data['status'] = 200;
-            $data['data'] = null;
+            $subs = MasukInventori::whereInventori($id)->groupBy('produk')->get();
+            foreach ($subs as $sub) {
+                KeluarInventori::whereProduk($sub->produk)->delete();
+            }
+
+            $subs = MasukInventori::whereInventori($id)->delete();
+
+            if($subs) {
+                $data['message'] = "Berhasil di hapus!";
+                $data['status'] = 200;
+                $data['data'] = null;
+            }else{
+                $data['message'] = "Gagal di hapus!";
+                $data['status'] = 404;
+                $data['data'] = null;
+            }
         }else{
             $data['message'] = "Gagal di hapus!";
             $data['status'] = 404;
